@@ -17,16 +17,6 @@ function App() {
   const [outputFileData, setOutputFileData] = React.useState(''); // represented as readable data (text string)
   const [buttonDisable, setButtonDisable] = React.useState(true);
   const [buttonText, setButtonText] = React.useState('Submit');
-  
-  const DownloadButton = props => {
-  const downloadFile = () => {
-    window.location.href = "https://yoursite.com/src/assets/files/exampleDoc.pdf"
-  }
-  return (
-            <button onClick={downloadFile} />
-  )
-  }
-  export default DownloadButton;
 
   // convert file to bytes data
   const convertFileToBytes = (inputFile) => {
