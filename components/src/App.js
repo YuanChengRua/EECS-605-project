@@ -102,7 +102,7 @@ function App() {
           setOutputFileData(decodeFileBase64(outputBytesData))
         }
         
-        setOutputFileData(decodeFileBase64(outputBytesData));
+        //setOutputFileData(decodeFileBase64(outputBytesData));
       }
 
       // re-enable submit button
