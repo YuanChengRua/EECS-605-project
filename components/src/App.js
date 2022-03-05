@@ -65,10 +65,10 @@ function App() {
 
     // make POST request
     console.log('making POST request...');
-    fetch('https://s0ixq8xo4d.execute-api.us-east-1.amazonaws.com/prod/', {
+    fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/', {
       method: 'POST',
       headers: { "Content-Type": "application/json"},
-      body: JSON.stringify({ "csv": inputFileData })
+      body: JSON.stringify({ "txt": inputFileData })
     }).then(response => response.json())
     .then(data => {
       console.log('getting response...')
@@ -82,27 +82,9 @@ function App() {
 
       // POST request success
       else {
-//         const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-        console.log('making POST request...');
-        fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/', {
-          method: 'POST',
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({"txt": inputFileData})
-        }).then(response => response.json())
-        .then(data => {
-          console.log('getting response...')
-          console.log(data);
-        })
-        if (data.statusCode == 400){
-          const outputErrorMessage = JSON.parse(data.errorMessage)['outputResultData'];
-          setOutputFileData(outputErrorMessage)
-        }
-        else{
-          const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-          setOutputFileData(decodeFileBase64(outputBytesData))
-        }
+        const outputBytesData = JSON.parse(data.body)['outputResultsData'];
+        setOutputFileData(decodeFileBase64(outputBytesData));
       }
-
       // re-enable submit button
       setButtonDisable(false);
       setButtonText('Submit');
@@ -120,11 +102,10 @@ function App() {
           <input type="file" accept=".csv" onChange={handleChange} />
           <button type="submit" disabled={buttonDisable}>{buttonText}</button>
         </form>
-        <img src={outputFileData} alt="" />
       </div>
       <div className="Output">
         <h1>Results</h1>
-//         <p>{outputFileData}</p>
+           <img src={outputFileData} alt="" />
       </div>
     </div>
   );
