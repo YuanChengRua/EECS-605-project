@@ -65,7 +65,7 @@ function App() {
 
     // make POST request
     console.log('making POST request...');
-    fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/', {
+    fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod', {
       method: 'POST',
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify({ "txt": inputFileData })
@@ -99,9 +99,10 @@ function App() {
       <div className="Input">
         <h1>Input</h1>
         <form onSubmit={handleSubmit}>
-          <input type="file" accept=".csv" onChange={handleChange} />
+          <input type="file" accept=".txt" onChange={handleChange} />
           <button type="submit" disabled={buttonDisable}>{buttonText}</button>
         </form>
+        <img src={outputFileData} />
       </div>
       <div className="Output">
         <h1>Results</h1>
