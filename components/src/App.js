@@ -65,7 +65,7 @@ function App() {
 
     // make POST request
     console.log('making POST request...');
-    fetch('https://s0ixq8xo4d.execute-api.us-east-1.amazonaws.com/prod/', {
+    fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/', {
       method: 'POST',
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify({ "txt": inputFileData })
