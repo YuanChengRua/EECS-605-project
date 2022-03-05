@@ -14,6 +14,7 @@ const decodeFileBase64 = (base64String) => {
 
 function App() {
   const [inputFileData, setInputFileData] = React.useState(''); // represented as bytes data (string)
+  const [inputFileData1, setInputFileData1] = React.useState('')
   const [outputFileData, setOutputFileData] = React.useState(''); // represented as readable data (text string)
   const [buttonDisable, setButtonDisable] = React.useState(true);
   const [buttonText, setButtonText] = React.useState('Submit');
@@ -75,11 +76,11 @@ function App() {
           fetch(`https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/`, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"txt": inputFileData})
+            body: JSON.stringify({"txt": inputFileData1})
           }).then((res) => res.json()),
       );
       Promise.all(respones).then((fetchedOrders) => {
-        setWork2(fetchedOrders);
+        setInputFileData1(fetchedOrders);
     });
     });
   }
