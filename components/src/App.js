@@ -71,43 +71,17 @@ function App() {
       body: JSON.stringify({ "csv": inputFileData })
     }).then(response => response.json())
     .then(data => {
-      console.log('getting response...')
-      console.log(data);
-
-      // POST request error
-      if (data.statusCode === 400) {
-        const outputErrorMessage = JSON.parse(data.errorMessage)['outputResultsData'];
-        setOutputFileData(outputErrorMessage);
-      }
-
-      // POST request success
-      else {
-        console.log('making POST request...');
-        fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod', {
-          method: 'POST',
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({"txt": inputFileData})
-      }).then(response => response.json())
-      .then(data => {
-        console.log('getting response...')
-        console.log(data)
-      })
-      if (data.statusCode==400){
-        const outputErrorMessage = JSON.parse(data.errorMessage)['outputResultsData'];
-        setOutputFileData(outputErrorMessage);
-      }
-      else {
-        const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-        setOutputFileData(decodeFileBase64(outputBytesData));
-      }
-      }
-      // re-enable submit button
-      setButtonDisable(false);
-      setButtonText('Submit');
-    })
-    .then(() => {
-      console.log('POST request success');
-    })
+      const respones = data.orders.map((order) =>
+          fetch(`https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/`, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({"txt": inputFileData})
+          }).then((res) => res.json()),
+      );
+      Promise.all(respones).then((fetchedOrders) => {
+        setWork2(fetchedOrders);
+    });
+    });
   }
 
   return (
@@ -121,7 +95,7 @@ function App() {
       </div>
       <div className="Output">
         <h1>Results</h1>
-           <p>{outputFileData} </p>
+           <img src={outputFileData} />
       </div>
     </div>
   );
