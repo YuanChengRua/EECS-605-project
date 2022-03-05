@@ -101,8 +101,6 @@ function App() {
           const outputBytesData = JSON.parse(data.body)['outputResultsData'];
           setOutputFileData(decodeFileBase64(outputBytesData))
         }
-        
-        setOutputFileData(decodeFileBase64(outputBytesData));
       }
 
       // re-enable submit button
