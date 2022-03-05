@@ -82,7 +82,7 @@ function App() {
 
       // POST request success
       else {
-        const outputBytesData = JSON.parse(data.body)['outputResultsData'];
+//         const outputBytesData = JSON.parse(data.body)['outputResultsData'];
         console.log('making POST request...');
         fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/', {
           method: 'POST',
