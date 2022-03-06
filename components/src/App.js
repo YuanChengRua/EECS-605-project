@@ -83,7 +83,7 @@ function App() {
       // POST request success
       else {
         const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-        setOutputFileData(decodeFileBase64(outputBytesDataArray));
+        setOutputFileData(decodeFileBase64(outputBytesData));
       }
       // re-enable submit button
       setButtonDisable(false);
