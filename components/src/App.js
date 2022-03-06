@@ -109,7 +109,7 @@ function App() {
           <input type="file" accept=".txt" onChange={handleChange} />
           <button type="submit" disabled={buttonDisable}>{buttonText}</button>
         </form>
-        <img src={`data:;base64,${outputFileData} alt="12323" />
+        <img src={`data:;base64,${outputFileData}`} alt="12323" />
        </div>
        <div className="Output">
         <h1>Results</h1>
