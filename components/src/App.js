@@ -102,11 +102,10 @@ function App() {
           <input type="file" accept=".txt" onChange={handleChange} />
           <button type="submit" disabled={buttonDisable}>{buttonText}</button>
         </form>
-        <img src={outputFileData} />
-      </div>
-      <div className="Output">
+        <img src={outputFileData} alt="12323" />
+       </div>
+       <div className="Output">
         <h1>Results</h1>
-           <img src={outputFileData} />
       </div>
     </div>
   );
