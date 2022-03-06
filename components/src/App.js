@@ -83,7 +83,6 @@ function App() {
       // POST request success
       else {
         const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-        const outputBytesDataArray = outputBytesData.split('base64,')[1];
         setOutputFileData(decodeFileBase64(outputBytesDataArray));
       }
       // re-enable submit button
