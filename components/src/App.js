@@ -70,9 +70,8 @@ function App() {
     setButtonDisable(true);
     setButtonText('Loading Result');
 
-    // make POST request
     console.log('making POST request...');
-    fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod', {
+    fetch('https://s0ixq8xo4d.execute-api.us-east-1.amazonaws.com/prod/', {
       method: 'POST',
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify({ "txt": inputFileData })
@@ -90,7 +89,24 @@ function App() {
       // POST request success
       else {
         const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-        setOutputFileData(outputBytesData);
+        console.log('making POST request...');
+        fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/', {
+          method: 'POST',
+          headers: { "Content-Type": "application/json"},
+          body: JSON.stringify({"txt": outputBytesData})
+        }).then(response => response.json())
+        .then(data => {
+          console.log('getting response...')
+          console.log(data);
+          if (data.statusCode==400){
+            const outputErrorMessage = JSON.parse(data.encodedString)['outputResultsData'];
+            setOutputFileData(outputErrorMessage);
+          }
+          else {
+            const outputBytesData = JSON.parse(data.body)['outputResultsData'];
+            setOutputFileData(outputBytesData)
+          }
+        })
       }
       // re-enable submit button
       setButtonDisable(false);
