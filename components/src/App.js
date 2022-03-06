@@ -14,7 +14,6 @@ const decodeFileBase64 = (base64String) => {
 
 function App() {
   const [inputFileData, setInputFileData] = React.useState(''); // represented as bytes data (string)
-  const [inputFileData1, setInputFileData1] = React.useState('')
   const [outputFileData, setOutputFileData] = React.useState(''); // represented as readable data (text string)
   const [buttonDisable, setButtonDisable] = React.useState(true);
   const [buttonText, setButtonText] = React.useState('Submit');
@@ -66,23 +65,33 @@ function App() {
 
     // make POST request
     console.log('making POST request...');
-    fetch('https://s0ixq8xo4d.execute-api.us-east-1.amazonaws.com/prod/', {
+    fetch('https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod', {
       method: 'POST',
       headers: { "Content-Type": "application/json"},
-      body: JSON.stringify({ "csv": inputFileData })
+      body: JSON.stringify({ "txt": inputFileData })
     }).then(response => response.json())
     .then(data => {
-      const respones = data.orders.map((order) =>
-          fetch(`https://tw964j9gb8.execute-api.us-east-1.amazonaws.com/prod/`, {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"txt": inputFileData1})
-          }).then((res) => res.json()),
-      );
-      Promise.all(respones).then((fetchedOrders) => {
-        setInputFileData1(fetchedOrders);
-    });
-    });
+      console.log('getting response...')
+      console.log(data);
+
+      // POST request error
+      if (data.statusCode === 400) {
+        const outputErrorMessage = JSON.parse(data.errorMessage)['outputResultsData'];
+        setOutputFileData(outputErrorMessage);
+      }
+
+      // POST request success
+      else {
+        const outputBytesData = JSON.parse(data.body)['outputResultsData'];
+        setOutputFileData(decodeFileBase64(outputBytesData));
+      }
+      // re-enable submit button
+      setButtonDisable(false);
+      setButtonText('Submit');
+    })
+    .then(() => {
+      console.log('POST request success');
+    })
   }
 
   return (
@@ -93,6 +102,7 @@ function App() {
           <input type="file" accept=".txt" onChange={handleChange} />
           <button type="submit" disabled={buttonDisable}>{buttonText}</button>
         </form>
+        <img src={outputFileData} />
       </div>
       <div className="Output">
         <h1>Results</h1>
