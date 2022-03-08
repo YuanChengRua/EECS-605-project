@@ -2,26 +2,21 @@ import './App.css';
 import React from 'react';
 
 // atob is deprecated but this function converts base64string to text string
-// const decodeFileBase64 = (base64String) => {
-//   // From Bytestream to Percent-encoding to Original string
-//   return decodeURIComponent(
-//     atob(base64String).split("").map(function (c) {
-//       return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-//     }).join("")
-//   );
-// };
-
 const decodeFileBase64 = (base64String) => {
   // From Bytestream to Percent-encoding to Original string
   return decodeURIComponent(
-    atob(base64String)
+    atob(base64String).split("").map(function (c) {
+      return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join("")
   );
 };
+
 
 
 function App() {
   const [inputFileData, setInputFileData] = React.useState(''); // represented as bytes data (string)
   const [outputFileData, setOutputFileData] = React.useState(''); // represented as readable data (text string)
+  const [outputFileDatarmse, setOutputFileDatarmse] = React.useState('');
   const [buttonDisable, setButtonDisable] = React.useState(true);
   const [buttonText, setButtonText] = React.useState('Submit');
 
@@ -104,7 +99,9 @@ function App() {
           }
           else {
             const outputBytesData = JSON.parse(data.body)['outputResultsData'];
-            setOutputFileData(outputBytesData)
+            setOutputFileData(outputBytesData);
+            const outputBytesDatarmse = JSON.parse(data.body)['outputResultsDatarmse'];
+            setOutputFileDatarmse(decodeFileBase64(outputBytesDatarmse))
           }
         })
       }
@@ -129,6 +126,7 @@ function App() {
        </div>
        <div className="Output">
         <h1>Results</h1>
+        <p>{outputFileData}</p>
       </div>
     </div>
   );
