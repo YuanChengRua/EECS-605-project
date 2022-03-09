@@ -94,7 +94,7 @@ function App() {
           console.log('getting response...')
           console.log(data);
           if (data.statusCode==400){
-            const outputErrorMessage = JSON.parse(data.encodedString)['outputResultsData'];
+            const outputErrorMessage = JSON.parse(data.errorMessage)['outputResultsData'];
             setOutputFileData(outputErrorMessage);
           }
           else {
