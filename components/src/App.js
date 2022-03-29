@@ -47,10 +47,10 @@ function App() {
     console.log(inputFile);
 
     // convert file to bytes data
-    const base64Data = await convertFileToBytes(inputFile);
-    const base64DataArray = base64Data.split('base64,'); // need to get rid of 'data:image/png;base64,' at the beginning of encoded string
-    const encodedString = base64DataArray[1];
-    setInputFileData(encodedString);
+//     const base64Data = await convertFileToBytes(inputFile);
+//     const base64DataArray = base64Data.split('base64,'); // need to get rid of 'data:image/png;base64,' at the beginning of encoded string
+//     const encodedString = base64DataArray[1];
+    setInputFileData(inputFile);
     console.log('file converted successfully');
 
     // enable submit button
