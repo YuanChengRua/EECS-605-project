@@ -43,7 +43,7 @@ function App() {
     setOutputFileData("");
 
     console.log('newly uploaded file');
-    const inputFile = event.target.files[0];
+    const inputFile = event.target.value;
     console.log(inputFile);
 
     // convert file to bytes data
@@ -119,7 +119,7 @@ function App() {
       <div className="Input">
         <h1>Input</h1>
         <form onSubmit={handleSubmit}>
-          <input type="file" accept=".txt" onChange={handleChange} />
+          <input type="text" onChange={handleChange} />
           <button type="submit" disabled={buttonDisable}>{buttonText}</button>
         </form>
         <img src={`data:;base64,${outputFileData}`} alt="12323" />
